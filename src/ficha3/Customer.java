@@ -39,6 +39,24 @@ public class Customer
 		result += "You earned " + getTotalFrequentRenterPoints() + " frequent renter points";
 		return result;
 	}
+    public String htmlStatement() {
+
+        // header
+        String result = "<font size=\"5\" face=\"Georgia, Arial, Garamond\" color=\"green\">\n";
+        result += "<h2>Rental Record for <i>" + getName() + "</i></h2>\n";
+
+        result += "<ul>\n";
+        for (Rental each : _rentals)
+            result += "\t<li>" + each.getMovie().getTitle() + "\t" + each.getAmount()+"\n";
+        result += "</ul>\n";
+
+        // add footer lines
+        result += "Amount owed is " + getTotalAmount() + "<br>\n";
+        result += "You earned " + getTotalFrequentRenterPoints() + " frequent renter points<br>\n";
+        result += "</font>\n";
+
+        return result;
+    }
     public int getTotalFrequentRenterPoints() {
         int points = 0;
         for (Rental each : _rentals) {
