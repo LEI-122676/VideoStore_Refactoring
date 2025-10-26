@@ -2,7 +2,7 @@ package ficha3;
 
 public class Movie {
 
-	public enum Code {REGULAR, CHILDRENS, NEW_RELEASE};
+    public enum Code {REGULAR, CHILDRENS, NEW_RELEASE};
 	
 	private String _title;
 	private Code _priceCode;
@@ -19,4 +19,32 @@ public class Movie {
 	public Code getPriceCode() {
 		return _priceCode;
 	}
+
+    public int getFrequentRentalPoints(int duration) {
+        // add bonus for a two day new release rental
+        return (_priceCode == Code.NEW_RELEASE) && duration > 1 ? 2 : 1;
+    }
+
+    public double getRentalAmount(int duration) {
+        double thisAmount = 0;
+
+        // determine amounts for each line
+        switch (_priceCode)
+        {
+            case REGULAR:
+                thisAmount += 2;
+                if (duration > 2)
+                    thisAmount += (duration - 2) * 1.5;
+                break;
+            case NEW_RELEASE:
+                thisAmount += duration * 3;
+                break;
+            case CHILDRENS:
+                thisAmount += 1.5;
+                if (duration > 3)
+                    thisAmount += (duration - 3) * 1.5;
+                break;
+        }
+        return thisAmount;
+    }    
 }
