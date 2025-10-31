@@ -1,40 +1,21 @@
 package ficha3;
 
-public class Price {
+public abstract class Price {
 
-    public enum Code {REGULAR, CHILDRENS, NEW_RELEASE;}
+    public boolean _blueray = false;
 
-    private Code _code;
+    public Price() {}
 
-    public Price(Code code) {_code = code;}
-
-    public Code getCode() {return _code;}
-
-    public int getFrequentRentalPoints(int duration) {
-        // add bonus for a two day new release rental
-        return (_code == Code.NEW_RELEASE) && duration > 1 ? 2 : 1;
+    public Price(boolean blueray) {
+        _blueray = blueray;
     }
 
-    public double getRentalAmount(int duration) {
-        double thisAmount = 0;
-
-        // determine amounts for each line
-        switch (_code)
-        {
-            case REGULAR:
-                thisAmount += 2;
-                if (duration > 2)
-                    thisAmount += (duration - 2) * 1.5;
-                break;
-            case NEW_RELEASE:
-                thisAmount += duration * 3;
-                break;
-            case CHILDRENS:
-                thisAmount += 1.5;
-                if (duration > 3)
-                    thisAmount += (duration - 3) * 1.5;
-                break;
-        }
-        return thisAmount;
+    public boolean is_blueray() {
+        return _blueray;
     }
+
+    public abstract int getFrequentRentalPoints(int duration);
+
+    public abstract double getRentalAmount(int duration);
+
 }
